@@ -54,6 +54,7 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
+      //cmd+option+b: 可以查看一个抽象类的全部实现类
       decoration: BoxDecoration(
         border: Border.all(width: 10, color: Colors.deepPurpleAccent),
       ),

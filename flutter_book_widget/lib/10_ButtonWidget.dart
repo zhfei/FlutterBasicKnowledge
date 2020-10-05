@@ -107,6 +107,9 @@ class CustomShadowButtonDemo extends StatelessWidget {
       colorBrightness: Brightness.dark,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
 
+      //修改阴影
+      elevation: 10,
+      highlightElevation: 20,
     );
   }
 }

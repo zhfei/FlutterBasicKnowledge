@@ -30,6 +30,8 @@ class _CounterWidgetState extends State<CounterWidget> {
           _counter++;
         });
       }, child: Text("计数总数：$_counter")),
+
+
     );
   }
 

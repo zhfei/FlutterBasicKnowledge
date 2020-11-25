@@ -27,6 +27,18 @@ void main(){
   Radio：单选框
   注意：通过Radio.value属性设置单选框代表的值，通过Radio.groupValue属性设置单选框选中的值，如果value和groupValue相等代表当前Radio被选中。
   注意：通过RadioListTile.value属性设置单选框代表的值，通过RadioListTile.groupValue属性设置单选框选中的值，如果value和groupValue相等代表当前RadioListTile被选中。RadioListTile.subtitle和RadioListTile.title为单元提示语
+
+  Switch : 开关，切换单一状态
+  SwitchListTile: 开关，切换单一状态，另外包含title,subTitle标题
+
+  Slider: 滑块，滑动改变值
+
+  DatePicker、TimePicker:
+  DateTime: 日期选择值。showDatePicker日期选择器，选择的项目是年、月、日；
+  它的展示方式是调用Dart库中的函数方法showDatePicker，并且是异步调用：final DateTime _picked = await showDatePicker(; 这个方法返回的是一个具体的DateTime类型的日期选择值。
+  TimeOfDay：日期选择值。showTimePicker时间选择器，选择的项目是时，分，秒；
+  它的展示方式是调用Dart库中的函数方法showTimePicker，并且是异步调用：final TimeOfDay _picked = await showTimePicker(; 这个方法返回的是一个具体的TimeOfDay类型的时间选择值。
+
  */
 
 
@@ -57,7 +69,7 @@ class _InputCheckBoxAppState extends State<InputCheckBoxApp> {
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
+          child: ListView(
             children: [
               Theme(
                 data: ThemeData(primaryColor: Colors.orange,hintColor: Colors.brown),
@@ -93,16 +105,11 @@ class _InputCheckBoxAppState extends State<InputCheckBoxApp> {
                   },
                 ),
               ),
-              Row(
-                children: [
-                  Checkbox(
-                    value: false,
-                    onChanged: (state){},
-                  ),
-                  CheckboxDemo(),
-                ],
-              ),
-              RadioDemo()
+              CheckboxDemo(),
+              RadioDemo(),
+              SwitchDemo(),
+              SliderDemo(),
+              DateTimerPickerDemo()
             ],
           ),
         ),
@@ -294,3 +301,147 @@ class _RadioDemoState extends State<RadioDemo> {
     );
   }
 }
+
+
+
+class SwitchDemo extends StatefulWidget {
+  @override
+  _SwitchDemoState createState() => _SwitchDemoState();
+}
+
+class _SwitchDemoState extends State<SwitchDemo> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Switch(
+          value: true,
+          onChanged: (isSwitch){
+
+          },
+        ),
+        SwitchListTile(
+
+          value: false,
+          onChanged: (isSwitch){
+
+          },
+          title: Text("标题"),
+          subtitle: Text('子标题'),
+        )
+      ],
+    );
+  }
+}
+
+
+class SliderDemo extends StatefulWidget {
+  @override
+  _SliderDemoState createState() => _SliderDemoState();
+}
+
+class _SliderDemoState extends State<SliderDemo> {
+  double _sliderValue = 0.3;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Slider(
+          activeColor: Colors.red,
+          label: "${_sliderValue}",
+          value: _sliderValue,
+          onChanged: (sliderValue){
+            setState(() {
+              _sliderValue = sliderValue;
+            });
+          },
+        ),
+      ],
+    );
+  }
+}
+
+
+//DateTime: 日期选择值。showDatePicker日期选择器，选择的项目是年、月、日；
+//它的展示方式是调用Dart库中的函数方法showDatePicker，并且是异步调用：final DateTime _picked = await showDatePicker(; 这个方法返回的是一个具体的DateTime类型的日期选择值。
+//TimeOfDay：日期选择值。showTimePicker时间选择器，选择的项目是时，分，秒；
+//它的展示方式是调用Dart库中的函数方法showTimePicker，并且是异步调用：final TimeOfDay _picked = await showTimePicker(; 这个方法返回的是一个具体的TimeOfDay类型的时间选择值。
+
+//
+
+class DateTimerPickerDemo extends StatefulWidget {
+  @override
+  _DateDemoState createState() => _DateDemoState();
+}
+
+class _DateDemoState extends State<DateTimerPickerDemo> {
+  DateTime _dateTime;
+  TimeOfDay _timeOfDay;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _dateTime = DateTime(2020);
+    _timeOfDay = TimeOfDay(hour: 9,minute: 22);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    //日期选择器
+    Future<Null> _selectDate(BuildContext context) async {
+      final DateTime _picked = await showDatePicker(
+        context: context,
+        initialDate: _dateTime,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2050)
+      );
+
+      if (_picked != null) {
+        print(_picked);
+        setState(() {
+          _dateTime = _picked;
+        });
+      }
+    }
+
+    //时间选择器
+    Future<Null> _selectTime(BuildContext context) async {
+      final TimeOfDay _picked = await showTimePicker(
+        context: context,
+        initialTime: _timeOfDay,
+      );
+
+      if (_picked != null) {
+        setState(() {
+          _timeOfDay = _picked;
+        });
+      }
+    }
+
+
+
+    return Column(
+      children: [
+        Text("日期：${_dateTime.toString()}"),
+        RaisedButton(
+          child: Text("日期选择器"),
+          onPressed: (){
+            _selectDate(context);
+          },
+        ),
+        Text("时间：${_timeOfDay.toString()}"),
+        RaisedButton(
+          child: Text("时间选择器"),
+          onPressed: (){
+            _selectTime(context);
+          },
+        ),
+      ],
+    );
+  }
+}
+
+

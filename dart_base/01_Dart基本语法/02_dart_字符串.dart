@@ -9,10 +9,9 @@ void main(List<String> args) {
       jkl
       mn
   """;
-
   print(str3);
 
-  // 字符串拼接，拼接规则和shell很相似
+  // 字符串拼接: 拼接规则和shell很相似
   var name = 'jack';
   var age = 30;
   var height = 190.3;

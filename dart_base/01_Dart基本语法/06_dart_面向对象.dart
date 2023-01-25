@@ -101,7 +101,7 @@ class Doctor {
   Doctor._internal(String name, int age);
 }
 
-// 常量构造函数，相同的属性只有一个内存对象。
+// 5.常量构造函数，相同的属性只有一个内存对象。
 class Apple {
   final String name;
   final int age;
@@ -109,7 +109,7 @@ class Apple {
   const Apple(this.name, this.age);
 }
 
-// 5.工厂构造函数：最大的特点可以手动返回一个对象。
+// 6.工厂构造函数：最大的特点可以手动返回一个对象。
 /*
   普通构造函数不需要写return 会自动返回实例对象。
   工厂构造函数需要写return 手动返回实例对象。
@@ -138,7 +138,7 @@ class Orange {
 }
 
 
-// 6.Setter, Getter进行属性监听
+// 7.Setter, Getter进行属性监听
 // 使用方式是: var e = Elephone(); e.setName('jim'); e.getName
 class Elephone {
   String name;
@@ -157,7 +157,7 @@ class Elephone {
 }
 
 
-// 7.继承：父类的构造函数要在子类的初始化列表中进行调用。
+// 8.继承：父类的构造函数要在子类的初始化列表中进行调用。
 class Animal{
   String name;
   Animal(this.name);
@@ -174,7 +174,7 @@ class Dog extends Animal {
 }
 
 
-// 8.抽象类
+// 9.抽象类
 // a.子类继承抽象父类，父类的接口方法必须实现，没有option可选项。
 // b.抽象类不能实例化
 /*
@@ -211,7 +211,7 @@ class Rectangle extends Shape {
 
 
 
-// 9.dart隐式接口：dart中定义的class同时也可以当接口使用。
+// 10.dart隐式接口：dart中定义的class同时也可以当接口使用。
 /*
   dart中没有interface/ protocal这样专门定义接口的关键字
   dart中定义的class 同时也具有接口的功能，把class当接口使用时，class中定义的方法必须要全部实现。
@@ -251,3 +251,52 @@ class SuperMan extends Animal implements Runner, Fly {
     super.eat();
   }
 }
+
+// 11.混入mixin
+/*
+  混入mixin间接实现多继承，可以同时引入多个mixin类中的方法
+  dart是单继承, 如果要想同时引入多个mixin类中的方法，则可以定义多个mixin类来引入
+  定义用mixin
+  使用用with
+*/
+mixin Play {
+  void play() {
+    print('play');
+  }
+}
+
+mixin Jump {
+  void jump() {
+    print('jump');
+  }
+}
+
+class Robbit extends Animal with Play, Jump {
+  Robbit(String name):super(name);
+
+  @override
+  void eat() {
+    // TODO: implement eat
+    super.eat();
+  }
+}
+
+
+/*
+  12.static 类属性，类方法
+*/
+
+class SuperWoman {
+  // 成员变量，成员方法
+  var name;
+  void fly() {
+
+  }
+
+  // 静态/类变量，静态/类方法
+  static var flyYear;
+  static void run() {
+
+  }
+}
+

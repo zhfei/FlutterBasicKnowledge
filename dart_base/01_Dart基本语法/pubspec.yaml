@@ -1,0 +1,4 @@
+name: zhoufei
+description: a dart lib
+dependencies:
+  http: ^0.12.0

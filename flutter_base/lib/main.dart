@@ -10,20 +10,47 @@ import 'package:flutter/material.dart';
 */
 
 void main(List<String> args) {
-  runApp(
-    MaterialApp(
+  runApp(MyApp());
+}
+
+
+/*
+  StatelessWidget: 在运行过程中，组件内容是固定的，没有状态修改的。
+  StatefulWidget: 在运行过程中，状态(data)会产生改变，导致页面展示内容发生改变。
+*/
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:Scaffold(
-          appBar: AppBar(title: Text('第一个Flutter程序'),),
-          body: Center(
-            child:Text('Hello Flutter', 
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 30,
-            ),
-          )
+      home: AppBody()
+    );
+  }
+}
+
+class AppBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(title: Text('第一个Flutter程序'),),
+        body: PageContent()
+      );
+  }
+  
+}
+
+class PageContent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child:Text('Hello Flutter', 
+        style: TextStyle(
+          color: Colors.blue,
+          fontSize: 30,
         ),
       )
-    )
-  );
+    );
+  }
+  
 }

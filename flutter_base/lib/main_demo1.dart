@@ -40,33 +40,16 @@ class AppBody extends StatelessWidget {
   
 }
 
-class PageContent extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return PageContentState();
-  }
-  
-}
-
-class PageContentState extends State<PageContent> {
-  var flag = true;
-
+class PageContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child:Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children:[
-            Checkbox(
-              value: flag, 
-              onChanged: (value) {
-                setState(() {
-                  flag = value;
-                });
-              },),
-            Text('Hello World')
-          ]
-        )
+        child:Text('Hello Flutter', 
+        style: TextStyle(
+          color: Colors.blue,
+          fontSize: 30,
+        ),
+      )
     );
   }
   

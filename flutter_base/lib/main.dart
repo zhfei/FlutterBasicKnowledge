@@ -40,12 +40,18 @@ class AppBody extends StatelessWidget {
   
 }
 
+/*
+  StatefulWidget内部无法写var属性, 因为它继承自Widget，Widget是被@immutable修饰，不可改变。所以它的状态改变要在别的类(State)中实现。
+  State:在创建的State子类中添加var属性，并将其与Widget状态绑定，当有新的状态改变时，需要调用setState((){})进行更新状态
+  Flutter的状态更新和React的机制一样，需要调用setState通知框架进行页面更新。
+  与Vue不同的是Vue实例使用的是双向绑定，内部对属性做了监听，无需手动调用setState进行通知更新。
+
+*/
 class PageContent extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return PageContentState();
   }
-  
 }
 
 class PageContentState extends State<PageContent> {

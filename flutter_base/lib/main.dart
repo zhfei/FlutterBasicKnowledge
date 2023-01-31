@@ -8,65 +8,72 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage()
+      home: MyHome()
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('商品列表'),
+      appBar: AppBar(title:Text('StateFullWidget')),
+      body: MyBody()
+    );
+  }
+}
+
+
+class MyBody extends StatefulWidget {
+  @override
+  State<MyBody> createState() => _MyBodyState();
+}
+
+/*
+  为什么Flutter设计的StatefulWidget的build方法放在State中？
+  1.build方法创建的Widget是需要依赖State状态的(变量、数据)，
+   而Widget中只能创建常量，无法创建变量，所以在State类中曲线救国来实现。
+  2.在Flutter的运行中，Widget是不断销毁和重建的，而这个过程中并不希望State状态被不断重建
+  State应该保持连贯性，所以把数据放到State类中。
+
+*/
+class _MyBodyState extends State<MyBody> {
+  int _counter = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RaisedButton(
+                child: Icon(Icons.add),
+                color: Colors.red,
+                onPressed: (){
+                  print('add');
+                  setState(() {
+                    _counter++;
+                  });
+                }
+              ),
+              RaisedButton(
+                child: Icon(Icons.subdirectory_arrow_left),
+                color: Colors.pink,
+                onPressed: (){
+                  print('sub');
+                  setState(() {
+                    _counter--;
+                  });
+                }
+              )
+            ],
+          ),
+          Text('当前计数为：${_counter}')
+        ]
       ),
-      body: MyContentBody(),
-    );
-  }
-}
-
-class MyContentBody extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-        children: [
-          MyShoppingItem('iPhone 13', "大屏 好看", 'https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4023ed80e2794fb48858b4809b17f139~tplv-k3u1fbpfcp-no-mark:480:400:0:0.image?'),
-          SizedBox(height: 10),
-          MyShoppingItem('iPhone 13', "大屏 好看", 'https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4023ed80e2794fb48858b4809b17f139~tplv-k3u1fbpfcp-no-mark:480:400:0:0.image?'),
-          SizedBox(height: 10),
-          MyShoppingItem('iPhone 13', "大屏 好看", 'https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4023ed80e2794fb48858b4809b17f139~tplv-k3u1fbpfcp-no-mark:480:400:0:0.image?'),
-        ],
-    );
-  }
-}
-
-class MyShoppingItem extends StatelessWidget {
-  final title;
-  final desc;
-  final imageUrl;
-  // 将TextStyle变成全局变量
-  final titleTextStyle = TextStyle(fontSize: 30, color: Colors.orange);
-  final descTextStyle = TextStyle(fontSize: 25, color: Colors.green);
-
-  MyShoppingItem(this.title, this.desc, this.imageUrl);
-
-  // Column: 主轴方向是垂直； Row: 主轴方向是水平
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(border: Border.all(width: 5, color: Colors.green)),
-      child:Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(this.title, style: titleTextStyle,),
-          SizedBox(height: 8,),
-          Text(this.desc, style: descTextStyle,),
-          SizedBox(height: 8,),
-          Image.network(this.imageUrl)
-        ],
-      )
     );
   }
 }

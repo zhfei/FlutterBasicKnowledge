@@ -46,34 +46,38 @@ class _MyBodyState extends State<MyBody> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              RaisedButton(
-                child: Icon(Icons.add),
-                color: Colors.red,
-                onPressed: (){
-                  print('add');
-                  setState(() {
-                    _counter++;
-                  });
-                }
-              ),
-              RaisedButton(
-                child: Icon(Icons.subdirectory_arrow_left),
-                color: Colors.pink,
-                onPressed: (){
-                  print('sub');
-                  setState(() {
-                    _counter--;
-                  });
-                }
-              )
-            ],
-          ),
+          _getButtons(),
           Text('当前计数为：${_counter}')
         ]
       ),
+    );
+  }
+
+  Widget _getButtons() {
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          RaisedButton(
+            child: Icon(Icons.add),
+            color: Colors.red,
+            onPressed: (){
+              print('add');
+              setState(() {
+                _counter++;
+              });
+            }
+          ),
+          RaisedButton(
+            child: Icon(Icons.subdirectory_arrow_left),
+            color: Colors.pink,
+            onPressed: (){
+              print('sub');
+              setState(() {
+                _counter--;
+              });
+            }
+          )
+        ],
     );
   }
 }
